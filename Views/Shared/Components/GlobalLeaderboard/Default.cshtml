@@ -1,0 +1,21 @@
+﻿@model HighscoresApp.Models.ViewModels.NewScoreViewModel;
+
+
+@foreach (var game in Model.Games)
+{
+    <div class="border border-black m-3 p-3">
+        <a href="games/@game.UrlSlug">
+            <h1>@game.Name</h1>
+        </a>
+        @{
+            var highscore = game.Leaderboards.OrderByDescending(p => p.Score).FirstOrDefault();
+        }
+        @if (highscore != null)
+        {
+            <div class="d-flex flex-row justify-content-between">
+                <div class="p-2">@highscore.Name, @highscore.Date.ToShortDateString()</div>
+                <div class="p-2">@highscore.Score</div>
+            </div>
+        }
+    </div>
+}

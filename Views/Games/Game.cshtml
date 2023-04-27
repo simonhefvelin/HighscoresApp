@@ -1,0 +1,23 @@
+﻿
+@model HighscoresApp.Models.ViewModels.GamePlayerViewModel
+
+
+<div class="d-flex flex-md-row-reverse justify-content-between ">
+    <div class="justify-content-end pb-3">
+        <img src="https://via.placeholder.com/600x500.png" alt="" />
+    </div>
+
+    <div class="p-4 ">
+        <h1>@Model.Games.Name</h1>
+        <span>@Model.Games.LaunchYear, @Model.Games.Genre</span>
+        <p class="pt-5">@Model.Games.Description</p>
+    </div>  
+</div>
+
+<h1 class="text-center pt-3">Leaderboard</h1>
+
+
+
+<partial name="_Highscores" model="@Model.Highscores" />
+
+

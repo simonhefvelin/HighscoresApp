@@ -1,0 +1,34 @@
+﻿@model HighscoresApp.Models.ViewModels.NewScoreViewModel
+
+<div class="row">
+    <div class="col-md-4">
+        <h1 class="text-center">Registrera highscore</h1>
+        <form asp-controller="highscores" asp-action="New" method="post">
+            <label asp-for="Highscore.GameId">Spel</label>
+            <select asp-for="Highscore.GameId" class="form-control" required>
+                <option selected disabled>Välj spel</option>
+                @foreach (var game in Model.Games)
+                {
+                    <option value="@game.Id">@game.Name</option>
+                }
+            </select>
+            <div class="form-group mt-3">
+                <label asp-for="Highscore.Name">Namn</label>
+                <input type="text" class="form-control" asp-for="Highscore.Name" required>
+            </div>
+
+            <div class="form-group mt-3">
+                <label asp-for="Highscore.Date">Datum</label>
+                <input type="date" class="form-control" asp-for="Highscore.Date" required>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="Highscore.Score">Poäng</label>
+                <input type="number" class="form-control" asp-for="Highscore.Score" required>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Registrera</button>
+        </form>
+    </div>
+</div>
+
+
+

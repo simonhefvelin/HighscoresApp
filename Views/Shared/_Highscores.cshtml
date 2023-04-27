@@ -1,0 +1,15 @@
+﻿@model IEnumerable<HighscoresApp.Models.Domain.Leaderboard>
+
+
+<div class="border border-black border-1 mt-3 p-3">
+    @foreach (var highscore in Model)
+    {
+        <div class="d-flex flex-row justify-content-between">
+            <div class="p-2">@highscore.Name, @highscore.Date.ToShortDateString()</div>
+            <div class="p-2">@highscore.Score</div>
+        </div>
+    }
+</div>
+
+
+
