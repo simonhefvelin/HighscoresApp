@@ -1,6 +1,4 @@
-﻿using HighscoresApp.Controllers;
-using HighscoresApp.Data;
-using HighscoresApp.Models.Domain;
+﻿using HighscoresApp.Data;
 using HighscoresApp.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,19 +16,27 @@ public class GlobalLeaderboardViewComponent : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync(string gameName)
     {
-        var games = await context.Games.ToListAsync();
-        var highScores = await context.Leaderboards
-            .Include(s => s.Game)
-            .OrderByDescending(s => s.Score)
-            .FirstAsync();
-            
+
+        var games = context.Games.Include(g => g.Leaderboards).ToList();
+        var viewModel = new List<GlobalHighscoreViewModel>();
 
 
-        var viewModel = new NewScoreViewModel()
+        foreach (var game in games)
         {
-            Games = games,
-            Highscore = new Leaderboard()
-        };
+
+            var highscore = game.Leaderboards.Where(o => o.GameId == game.Id).OrderByDescending(l => l.Score).FirstOrDefault();
+
+            if (highscore != null)
+            {
+                viewModel.Add(
+                new GlobalHighscoreViewModel
+                {
+                    Highscore = highscore,
+                    Games = game
+                });
+
+            }
+        }
 
         return View(viewModel);
     }
