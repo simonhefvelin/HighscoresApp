@@ -22,6 +22,7 @@ namespace HighscoresApp.Controllers
                 Games = game,
                 Highscores = context.Leaderboards.Where(x => x.Game.Name == game.Name)
                 .OrderByDescending(s => s.Score)
+                .Take(10)
 
             };
 
